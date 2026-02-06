@@ -52,14 +52,23 @@
     }
   });
 
-  // No button movement
-  function moveButton() {
+  // Move the "No" button randomly
+function moveButton() {
     const noBtn = document.getElementById('noButton');
     const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
     const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
     noBtn.style.left = `${x}px`;
     noBtn.style.top = `${y}px`;
-  }
+}
+
+// Yes button redirect
+const yesButton = document.getElementById('yesButton');
+if (yesButton) {
+    yesButton.addEventListener('click', () => {
+        // Redirect immediately to celebration page
+        window.location.href = "yes.html";
+    });
+}
 </script>
 </head>
 <body>
