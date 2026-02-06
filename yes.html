@@ -6,6 +6,54 @@
     <link rel="stylesheet" href="./Styles/yes.css">
     <!-- Include any additional stylesheets or meta tags here -->
 </head>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script>
+    window.onload = () => {
+        const sound = document.getElementById("popSound");
+
+        // Play pop sound (mobile-safe)
+        sound.volume = 0.7;
+        sound.play().catch(() => {});
+
+        const duration = 3000; // 3 seconds
+        const end = Date.now() + duration;
+
+        // Heart shape
+        const heart = confetti.shapeFromText({ text: "❤️", scalar: 2 });
+
+        (function frame() {
+            // Classic confetti
+            confetti({
+                particleCount: 4,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 },
+                colors: ['#FFC0CB', '#FF69B4', '#FAF9F6', '#CBE6EF']
+            });
+
+            confetti({
+                particleCount: 4,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 },
+                colors: ['#FFC0CB', '#FF69B4', '#FAF9F6', '#CBE6EF']
+            });
+
+            // Hearts
+            confetti({
+                particleCount: 2,
+                angle: 90,
+                spread: 80,
+                origin: { x: Math.random(), y: 0 },
+                shapes: [heart]
+            });
+
+            if (Date.now() < end) {
+                requestAnimationFrame(frame);
+            }
+        })();
+    };
+</script>
 <body>
     <div class="container">
         <div>
@@ -18,7 +66,10 @@
         <p class="text" style="margin-top: -30px;">You're now MINE!!!</p>
     </div>
 
-    <!-- Note: Positioned at the bottom near the 
+    <!-- Note: Positioned at the bottom near the -->
     <!-- Include any external scripts if needed -->
+    <audio id="popSound" preload="auto">
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-quick-win-video-game-notification-269.mp3" type="audio/mpeg">
+</audio>
 </body>
 </html>
