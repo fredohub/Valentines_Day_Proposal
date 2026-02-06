@@ -35,23 +35,36 @@ document.addEventListener("DOMContentLoaded", () => {
     const pop = document.getElementById("popSound");
     const sparkle = document.getElementById("sparkleSound");
 
-    // Play POP sound immediately
+    // Play pop sound immediately
     if (pop) pop.volume = 0.7; pop.play().catch(() => {});
 
-    // Play sparkle 400ms later
-    setTimeout(() => { if (sparkle) sparkle.volume = 0.5; sparkle.play().catch(() => {}); }, 400);
+    // Play sparkle sound 400ms later
+    setTimeout(() => { 
+        if (sparkle) sparkle.volume = 0.5; sparkle.play().catch(() => {}); 
+    }, 400);
 
-    const duration = 3000; // 3 seconds
+    const duration = 3000; // Confetti duration in ms
     const end = Date.now() + duration;
-    const myConfetti = confetti.create(null, { resize: true });
 
-    // Array of hearts for romantic confetti
+    const myConfetti = confetti.create(null, { resize: true });
     const hearts = ['❤️','💖','💕','💘'];
 
     (function frame() {
-        // Left and right colored confetti
-        myConfetti({ particleCount: 4, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#FFC0CB','#FF69B4','#FAF9F6','#CBE6EF'] });
-        myConfetti({ particleCount: 4, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#FFC0CB','#FF69B4','#FAF9F6','#CBE6EF'] });
+        // Left and right confetti
+        myConfetti({
+            particleCount: 4,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: ['#FFC0CB','#FF69B4','#FAF9F6','#CBE6EF']
+        });
+        myConfetti({
+            particleCount: 4,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: ['#FFC0CB','#FF69B4','#FAF9F6','#CBE6EF']
+        });
 
         // Heart confetti
         myConfetti({
