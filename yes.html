@@ -5,92 +5,73 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="./Styles/yes.css">
 <title>Valentine Surprise</title>
+
+<!-- Confetti library -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
 <div class="container">
-    <div>
-        <h1 class="header_text">Hoorayy!!!</h1>
-    </div>
+    <h1 class="header_text">Hoorayy!!!</h1>
 
     <div class="gif_container">
-        <img src="https://i.gifer.com/Pak.gif" alt="Cute animated illustration" style="margin-top: -60px;">
+        <img src="https://i.gifer.com/Pak.gif" alt="Cute animated illustration">
     </div>
 
-    <p class="text" style="margin-top: -30px;">You're now MINE!!!</p>
+    <p class="text">You're now MINE!!!</p>
 </div>
 
-<!-- POP sound -->
+<!-- Audio elements -->
 <audio id="popSound" preload="auto">
     <source src="https://assets.mixkit.co/sfx/preview/mixkit-quick-win-video-game-notification-269.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Sparkle sound -->
 <audio id="sparkleSound" preload="auto">
     <source src="https://assets.mixkit.co/sfx/preview/mixkit-magical-coin-win-1936.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Confetti library -->
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
 <script>
-window.addEventListener("load", () => {
+document.addEventListener("DOMContentLoaded", () => {
     const pop = document.getElementById("popSound");
     const sparkle = document.getElementById("sparkleSound");
 
-    // Play POP sound
-    if (pop) { pop.volume = 0.7; pop.play().catch(() => {}); }
+    // Play POP sound immediately
+    if (pop) pop.volume = 0.7; pop.play().catch(() => {});
 
-    // Play Sparkle 400ms later
-    setTimeout(() => {
-        if (sparkle) { sparkle.volume = 0.5; sparkle.play().catch(() => {}); }
-    }, 400);
+    // Play sparkle 400ms later
+    setTimeout(() => { if (sparkle) sparkle.volume = 0.5; sparkle.play().catch(() => {}); }, 400);
 
     const duration = 3000; // 3 seconds
     const end = Date.now() + duration;
-
-    // Create confetti canvas
     const myConfetti = confetti.create(null, { resize: true });
 
-    // Animation loop
+    // Array of hearts for romantic confetti
+    const hearts = ['❤️','💖','💕','💘'];
+
     (function frame() {
-        // Left confetti
-        myConfetti({
-            particleCount: 4,
-            angle: 60,
-            spread: 55,
-            origin: { x: 0 },
-            colors: ['#FFC0CB', '#FF69B4', '#FAF9F6', '#CBE6EF']
-        });
+        // Left and right colored confetti
+        myConfetti({ particleCount: 4, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#FFC0CB','#FF69B4','#FAF9F6','#CBE6EF'] });
+        myConfetti({ particleCount: 4, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#FFC0CB','#FF69B4','#FAF9F6','#CBE6EF'] });
 
-        // Right confetti
+        // Heart confetti
         myConfetti({
-            particleCount: 4,
-            angle: 120,
-            spread: 55,
-            origin: { x: 1 },
-            colors: ['#FFC0CB', '#FF69B4', '#FAF9F6', '#CBE6EF']
-        });
-
-        // Hearts as confetti particles using text
-        myConfetti({
-            particleCount: 5,
+            particleCount: 3,
             angle: 90,
-            spread: 80,
+            spread: 70,
             origin: { x: Math.random(), y: 0 },
             shapes: ['text'],
             scalar: 1.5,
-            text: ['❤️', '💖', '💕', '💘'][Math.floor(Math.random() * 4)]
+            ticks: 200,
+            gravity: 0.4,
+            drift: 0.5,
+            startVelocity: 20,
+            text: hearts[Math.floor(Math.random() * hearts.length)]
         });
 
-        if (Date.now() < end) {
-            requestAnimationFrame(frame);
-        }
+        if (Date.now() < end) requestAnimationFrame(frame);
     })();
 });
 </script>
 
-</body>
-</html>
 </body>
 </html>
