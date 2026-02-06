@@ -3,7 +3,11 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #CBE6EF;
+    background-color: #FFC0CB;
+    background-image: 
+        radial-gradient(circle at 10px 10px, rgba(255,255,255,0.6) 2px, transparent 2px),
+        radial-gradient(circle at 30px 30px, rgba(255,255,255,0.6) 2px, transparent 2px);
+    background-size: 40px 40px;
 }
 
 /* Position the "No" button absolutely within body */
