@@ -4,72 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./Styles/yes.css">
-    <!-- Include any additional stylesheets or meta tags here -->
+    <title>Valentine Surprise</title>
 </head>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-<script>
-    window.onload = () => {
-        const sound = document.getElementById("popSound");
 
-        // Play pop sound (mobile-safe)
-        sound.volume = 0.7;
-        sound.play().catch(() => {});
-
-        const duration = 3000; // 3 seconds
-        const end = Date.now() + duration;
-
-        // Heart shape
-        const heart = confetti.shapeFromText({ text: "❤️", scalar: 2 });
-
-        (function frame() {
-            // Classic confetti
-            confetti({
-                particleCount: 4,
-                angle: 60,
-                spread: 55,
-                origin: { x: 0 },
-                colors: ['#FFC0CB', '#FF69B4', '#FAF9F6', '#CBE6EF']
-            });
-
-            confetti({
-                particleCount: 4,
-                angle: 120,
-                spread: 55,
-                origin: { x: 1 },
-                colors: ['#FFC0CB', '#FF69B4', '#FAF9F6', '#CBE6EF']
-            });
-
-            // Hearts
-            confetti({
-                particleCount: 2,
-                angle: 90,
-                spread: 80,
-                origin: { x: Math.random(), y: 0 },
-                shapes: [heart]
-            });
-
-            if (Date.now() < end) {
-                requestAnimationFrame(frame);
-            }
-        })();
-    };
-</script>
 <body>
     <div class="container">
         <div>
             <h1 class="header_text">Hoorayy!!!</h1>
         </div>
+
         <div class="gif_container">
             <img src="https://i.gifer.com/Pak.gif" alt="Cute animated illustration" style="margin-top: -60px;">
         </div>
-        <!-- Adjusted position of the text element by 100px -->
+
         <p class="text" style="margin-top: -30px;">You're now MINE!!!</p>
     </div>
 
-    <!-- Note: Positioned at the bottom near the -->
-    <!-- Include any external scripts if needed -->
+    <!-- POP sound -->
     <audio id="popSound" preload="auto">
-    <source src="https://assets.mixkit.co/sfx/preview/mixkit-quick-win-video-game-notification-269.mp3" type="audio/mpeg">
-</audio>
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-quick-win-video-game-notification-269.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Sparkle sound -->
+    <audio id="sparkleSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-magical-coin-win-1936.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Confetti library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <!-- Confetti + Hearts + Sounds -->
+    <script>
+        window.addEventListener("load", () => {
+            const pop = document.getElementById("popSound");
+            const sparkle = document.getElementById("sparkleSound");
+
+            // Play POP sound
+            if (pop) {
+                pop.volume = 0.7;
+                pop.play().catch(() => {});
+            }
+
+            // Play Sparkle sound 400ms later
+            setTimeout(() => {
+                if (sparkle) {
+                    sparkle.volume = 0.5;
+                    sparkle.play().catch(() => {});
+                }
+            }, 400);
+
+            const duration = 3000; // 3 seconds
+            const end = Date.now() + duration;
+
+            // Heart shape for confetti
+            const heart = confetti.shapeFromText({ text: "❤️", scalar: 2 });
+
+            // Confetti animation loop
+            (function frame() {
+                // Classic confetti from left
+                confetti({
+                    particleCount: 4,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#FFC0CB', '#FF69B4', '#FAF9F6', '#CBE6EF']
+                });
+
+                // Classic confetti from right
+                confetti({
+                    particleCount: 4,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#FFC0CB', '#FF69B4', '#FAF9F6', '#CBE6EF']
+                });
+
+                // Falling hearts
+                confetti({
+                    particleCount: 2,
+                    angle: 90,
+                    spread: 80,
+                    origin: { x: Math.random(), y: 0 },
+                    shapes: [heart]
+                });
+
+                // Continue until 3 seconds have passed
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            })();
+        });
+    </script>
 </body>
 </html>
