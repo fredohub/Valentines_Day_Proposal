@@ -1,70 +1,88 @@
+/* Full-page layout & background */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #FFC0CB;
+    background-color: #FFC0CB; /* soft pink */
     background-image: 
         radial-gradient(circle at 10px 10px, rgba(255,255,255,0.6) 2px, transparent 2px),
         radial-gradient(circle at 30px 30px, rgba(255,255,255,0.6) 2px, transparent 2px);
     background-size: 40px 40px;
+    font-family: 'Nunito', sans-serif;
+    overflow: hidden; /* prevent scrollbars from confetti */
+    position: relative;
 }
 
-/* Position the "No" button absolutely within body */
-#noButton {
-    position: absolute;
-    margin-left: 150px;
-    transition: 0.5s;
-    /* Smooth movement */
-}
-
-#yesButton {
-    position: absolute;
-    margin-right: 150px;
-    /* Smooth movement */
-}
-
+/* Header and text styling */
 .header_text, .text {
-    font-family: 'Nunito';
     font-size: 50px;
     font-weight: bold;
     color: white;
     text-align: center;
-    margin-top: 0px;
-    margin-bottom: 0;
+    margin: 0;
+    text-shadow: 2px 2px #FF69B4; /* subtle pink shadow for better contrast */
 }
 
-.buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 40px; /* Adjusted for better spacing */
-    margin-left: 20px;
-    /* optional: adds some space between the buttons */
-}
-
-.btn {
-    background-color: #80c3d8;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border: none;
-    border-radius: 12px;
-    transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-    background-color: #FAF9F6;
-}
-
+/* GIF container */
 .gif_container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* Buttons container */
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    gap: 20px; /* replaces manual margin for spacing */
+}
+
+/* Yes button */
+#yesButton {
+    padding: 15px 32px;
+    font-size: 16px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background-color: #80c3d8;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+/* No button */
+#noButton {
+    padding: 15px 32px;
+    font-size: 16px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background-color: #80c3d8;
+    color: white;
+    transition: all 0.5s ease; /* smooth movement for running away */
+    position: absolute; /* keeps it free to move anywhere */
+}
+
+/* Hover effects */
+#yesButton:hover, #noButton:hover {
+    background-color: #FAF9F6;
+    color: #FF1493; /* subtle pink text on hover */
+}
+
+/* Optional: small note at bottom */
+.made-with-love {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: #777;
+}
